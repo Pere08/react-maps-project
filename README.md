@@ -16,7 +16,7 @@ You can find in the app:
 
 commands:
 
-npm i -> to download the correct libaries
+npm i -> to download the correct libraries
 
 npm start -> Runs the app in the development mode.
 
