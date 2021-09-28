@@ -73,6 +73,7 @@ function Map() {
 
   return isLoaded ? (
     <>
+      <h1 data-testid="Title">Google Maps API</h1>
       <GoogleMap
         mapContainerStyle={styles.container}
         center={center}
