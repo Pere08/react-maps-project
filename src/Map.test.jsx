@@ -1,32 +1,20 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
-import configureStore from './redux/store/index';
-
+import { useJsApiLoader } from '@react-google-maps/api';
+import { render, screen } from './utils/test.utils';
 import Map from './Map';
 
-let container = null;
-beforeEach(() => {
-  // configurar un elemento del DOM como objetivo del renderizado
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
+jest.mock('@react-google-maps/api');
 
-afterEach(() => {
-  // limpieza al salir
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
-test('Render title page', () => {
-  act(() => {
-    render(
-      <Provider store={configureStore()}>
-        <Map />
-      </Provider>, container,
-    );
+describe('Given a map component', () => {
+  describe('When is rendered', () => {
+    test('Title is showed', () => {
+      useJsApiLoader.mockReturnValue({
+        isLoaded: true,
+      });
+      render(
+        <Map />,
+      );
+      expect(screen.getByTestId('Title')).toBeInTheDocument();
+    });
   });
-  expect(container.querySelector('[data-testid="Title"]')).toBeInTheDocument();
 });
