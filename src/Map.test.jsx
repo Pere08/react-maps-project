@@ -6,7 +6,7 @@ import Map from './Map';
 jest.mock('@react-google-maps/api');
 
 describe('Given a map component', () => {
-  describe('When is rendered', () => {
+  describe('When is rendered and isLoaded is true', () => {
     test('Title is showed', () => {
       useJsApiLoader.mockReturnValue({
         isLoaded: true,
