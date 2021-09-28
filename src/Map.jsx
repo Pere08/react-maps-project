@@ -3,14 +3,18 @@ import React, {
   useState,
   useCallback,
   memo,
+  useEffect,
 } from 'react';
 import {
   GoogleMap, Marker, Autocomplete, useJsApiLoader,
 } from '@react-google-maps/api';
+import { useDispatch } from 'react-redux';
 
-import styles from './map.css';
+import styles from './Map.styles';
+import actionTypes from './redux/actions/actionTypes';
 
 function Map() {
+  const dispatch = useDispatch();
   const [zoom, setZoom] = useState(15);
 
   const [center, setCenter] = useState({
@@ -20,7 +24,7 @@ function Map() {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.googleMapsApiKey,
+    googleMapsApiKey: process.env.REACT_APP_googleApi,
     libraries: ['places'],
   });
 
@@ -60,25 +64,17 @@ function Map() {
     setMap(null);
   }, []);
 
+  useEffect(() => {
+    dispatch({
+      type: actionTypes.SEND_DATA,
+      data: [center],
+    });
+  }, [center]);
+
   return isLoaded ? (
     <>
-      <p>
-        zoom:
-        {' '}
-        {zoom}
-      </p>
-      <p>
-        lat:
-        {' '}
-        {center.lat}
-      </p>
-      <p>
-        lng:
-        {' '}
-        {center.lng}
-      </p>
       <GoogleMap
-        mapContainerStyle={styles.containerStyle}
+        mapContainerStyle={styles.container}
         center={center}
         zoom={zoom}
         onLoad={onMapLoad}
