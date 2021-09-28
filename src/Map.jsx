@@ -24,7 +24,7 @@ function Map() {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_googleApi,
+    googleMapsApiKey: process.env.REACT_APP_googleApiKey,
     libraries: ['places'],
   });
 
@@ -81,7 +81,6 @@ function Map() {
         onLoad={onMapLoad}
         onUnmount={onUnmount}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
         <>
           <div className="slidecontainer">
             <input
