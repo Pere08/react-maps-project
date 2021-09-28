@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
+import configureStore from './redux/store/index';
 
 import Map from './Map';
 
@@ -18,9 +20,13 @@ afterEach(() => {
   container = null;
 });
 
-test('Render button "Mi cuenta"', () => {
+test('Render title page', () => {
   act(() => {
-    render(<Map />, container);
+    render(
+      <Provider store={configureStore()}>
+        <Map />
+      </Provider>, container,
+    );
   });
-  expect(container.querySelector("[data-testid='title']").textContent).toBe('Cuenta');
+  expect(container.querySelector('[data-testid="Title"]')).toBeInTheDocument();
 });
