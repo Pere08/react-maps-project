@@ -10,7 +10,6 @@ You can find in the app:
 - Redux to handle local state
 - Mobile first, full responsive styles
 - Environment variables
-- SOLID
 - DRY
 - ESLint
 
